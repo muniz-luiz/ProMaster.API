@@ -1,6 +1,6 @@
 ﻿namespace ProMaster.API.Models
 {
-    public class Evento
+    public class Eventos
     {
         public int EventoId { get; set; }
         public string Local { get; set; }

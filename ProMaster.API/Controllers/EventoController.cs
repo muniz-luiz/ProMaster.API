@@ -1,3 +1,4 @@
+using System.Diagnostics.Tracing;
 using Microsoft.AspNetCore.Mvc;
 using ProMaster.API.Models;
 
@@ -7,8 +8,8 @@ namespace ProMaster.API.Controllers
     [Route("api/[controller]")]
     public class EventoController : ControllerBase
     {
-        public IEnumerable<Evento> _evento = new Evento[]
-        { new Evento()
+        public IEnumerable<Eventos> _evento = new Eventos[]
+        { new Eventos()
             {
                 EventoId = 1,
                 Local = "Recife",
@@ -18,14 +19,24 @@ namespace ProMaster.API.Controllers
                 Lote = "2º Lote",
                 ImgURL = "FotoLocal.jpg"
             },
-            new Evento()
+            new Eventos()
             {
                 EventoId = 2,
                 Local = "Pernambuco",
                 DataEvento = DateTime.Now.AddDays(3).ToString("yy-MM-dd"),
                 Tema = "Angular 11",
-                QtdPessoas = 400,
-                Lote = "2º Lote",
+                QtdPessoas = 100,
+                Lote = "1º Lote",
+                ImgURL = "FotoLocal.jpg"
+            },
+            new Eventos()
+            {
+                EventoId = 3,
+                Local = "Caruaru",
+                DataEvento = DateTime.Now.AddDays(1).ToString("yy-MM-dd"),
+                Tema = "Angular 11",
+                QtdPessoas = 200,
+                Lote = "5º Lote",
                 ImgURL = "FotoLocal.jpg"
             }
 
@@ -35,10 +46,17 @@ namespace ProMaster.API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Evento> Get()
+        public IEnumerable<Eventos> Get()
         {
             return _evento;
         }
+
+        [HttpGet("{id}")]
+        public IEnumerable<Eventos> GetByID(int id)
+        {
+            return _evento.Where(evento => evento.EventoId  == id);
+        }
+
         [HttpPost]
         public string Post()
         {

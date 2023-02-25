@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ProMaster.API.Models;
 
 namespace ProMaster.API.Controllers
 {
@@ -6,15 +7,42 @@ namespace ProMaster.API.Controllers
     [Route("api/[controller]")]
     public class EventoController : ControllerBase
     {
+        public IEnumerable<Evento> _evento = new Evento[]
+        { new Evento()
+            {
+                EventoId = 1,
+                Local = "Recife",
+                DataEvento = DateTime.Now.AddDays(3).ToString("yy-MM-dd"),
+                Tema = "Angular 11",
+                QtdPessoas = 400,
+                Lote = "2º Lote",
+                ImgURL = "FotoLocal.jpg"
+            },
+            new Evento()
+            {
+                EventoId = 2,
+                Local = "Pernambuco",
+                DataEvento = DateTime.Now.AddDays(3).ToString("yy-MM-dd"),
+                Tema = "Angular 11",
+                QtdPessoas = 400,
+                Lote = "2º Lote",
+                ImgURL = "FotoLocal.jpg"
+            }
+
+        };
         public EventoController()
         {
-
         }
 
         [HttpGet]
-        public string Get()
+        public IEnumerable<Evento> Get()
         {
-            return "value";
+            return _evento;
+        }
+        [HttpPost]
+        public string Post()
+        {
+            return "Exemplo de Post";
         }
 
     }

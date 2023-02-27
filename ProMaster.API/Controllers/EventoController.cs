@@ -1,60 +1,36 @@
-using System.Diagnostics.Tracing;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using ProMaster.API.Data;
+using ProMaster.API.Models;
+using ProMaster.API.Data;
 using ProMaster.API.Models;
 
-namespace ProMaster.API.Controllers
+namespace ProEventos.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
     public class EventoController : ControllerBase
-    {
-        public IEnumerable<Evento> _evento = new Evento[]
-        { new Evento()
-            {
-                EventoId = 1,
-                Local = "Recife",
-                DataEvento = DateTime.Now.AddDays(3).ToString("yy-MM-dd"),
-                Tema = "Angular 11",
-                QtdPessoas = 400,
-                Lote = "2º Lote",
-                ImgURL = "FotoLocal.jpg"
-            },
-            new Evento()
-            {
-                EventoId = 2,
-                Local = "Pernambuco",
-                DataEvento = DateTime.Now.AddDays(3).ToString("yy-MM-dd"),
-                Tema = "Angular 11",
-                QtdPessoas = 100,
-                Lote = "1º Lote",
-                ImgURL = "FotoLocal.jpg"
-            },
-            new Evento()
-            {
-                EventoId = 3,
-                Local = "Caruaru",
-                DataEvento = DateTime.Now.AddDays(1).ToString("yy-MM-dd"),
-                Tema = "Angular 11",
-                QtdPessoas = 200,
-                Lote = "5º Lote",
-                ImgURL = "FotoLocal.jpg"
-            }
-
-        };
-        public EventoController()
+    
         {
+        private readonly DataContext _context;
+        public EventoController(DataContext context)
+        {
+            _context = context;
         }
 
         [HttpGet]
         public IEnumerable<Evento> Get()
         {
-            return _evento;
+            return _context.Eventos;
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<Evento> GetByID(int id)
+        public Evento GetById(int id)
         {
-            return _evento.Where(evento => evento.EventoId  == id);
+           return _context.Eventos.FirstOrDefault(
+                evento => evento.EventoId == id
+            );
         }
 
         [HttpPost]
@@ -62,6 +38,15 @@ namespace ProMaster.API.Controllers
         {
             return "Exemplo de Post";
         }
-
+        [HttpPut("{id}")]
+        public string Put(int id)
+        {
+            return $"Exemplo de Put com id = {id}";
+        }
+        [HttpDelete("{id}")]
+        public string Delete(int id)
+        {
+            return $"Exemplo de Delete com id = {id}";
+        }
     }
 }

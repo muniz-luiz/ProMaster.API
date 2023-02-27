@@ -8,8 +8,8 @@ namespace ProMaster.API.Controllers
     [Route("api/[controller]")]
     public class EventoController : ControllerBase
     {
-        public IEnumerable<Eventos> _evento = new Eventos[]
-        { new Eventos()
+        public IEnumerable<Evento> _evento = new Evento[]
+        { new Evento()
             {
                 EventoId = 1,
                 Local = "Recife",
@@ -19,7 +19,7 @@ namespace ProMaster.API.Controllers
                 Lote = "2º Lote",
                 ImgURL = "FotoLocal.jpg"
             },
-            new Eventos()
+            new Evento()
             {
                 EventoId = 2,
                 Local = "Pernambuco",
@@ -29,7 +29,7 @@ namespace ProMaster.API.Controllers
                 Lote = "1º Lote",
                 ImgURL = "FotoLocal.jpg"
             },
-            new Eventos()
+            new Evento()
             {
                 EventoId = 3,
                 Local = "Caruaru",
@@ -46,13 +46,13 @@ namespace ProMaster.API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Eventos> Get()
+        public IEnumerable<Evento> Get()
         {
             return _evento;
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<Eventos> GetByID(int id)
+        public IEnumerable<Evento> GetByID(int id)
         {
             return _evento.Where(evento => evento.EventoId  == id);
         }
